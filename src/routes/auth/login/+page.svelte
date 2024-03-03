@@ -2,9 +2,10 @@
 	import { superForm } from 'sveltekit-superforms';
 
 	export let data;
+	export let form;
 
 	// Client API:
-	const { form, errors, constraints, enhance } = superForm(data.form);
+	const { form: _form, errors, constraints, enhance } = superForm(data.form);
 </script>
 
 <div class="flex flex-col md:min-w-[38rem] lg:min-w-[40rem]">
@@ -18,7 +19,7 @@
 				name="email"
 				aria-invalid={$errors.email ? 'true' : undefined}
 				placeholder="Email"
-				bind:value={$form.email}
+				bind:value={$_form.email}
 				{...$constraints.email} />
 			{#if $errors.email}<span class="invalid">{$errors.email}</span>{/if}
 		</label>
@@ -30,12 +31,17 @@
 				name="password"
 				aria-invalid={$errors.password ? 'true' : undefined}
 				placeholder="Password"
-				bind:value={$form.password}
+				bind:value={$_form.password}
 				{...$constraints.password} />
 			{#if $errors.password}<span class="invalid">{$errors.password}</span>{/if}
 		</label>
 
 		<a href="/auth/forgot-password" class="my-2">Forgot Password?</a>
+
+		<!-- TODO: Add better verification form -->
+		{#if form?.notVerified}
+			<p>Not verified!</p>
+		{/if}
 
 		<div class="flex justify-between">
 			<button class="variant-filled-primary btn mt-4" type="submit">

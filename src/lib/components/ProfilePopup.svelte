@@ -16,6 +16,11 @@
 			<li><a href="/">Profile</a></li>
 			<li><a href="/">Dashboard</a></li>
 			<li><a href="/">Account Settings</a></li>
+			<li>
+				<form action="/auth/logout" method="POST">
+					<button class="variant-filled-primary btn">Logout</button>
+				</form>
+			</li>
 		</ul>
 	</nav>
 	<div class="bg-surface-100-800-token arrow" />

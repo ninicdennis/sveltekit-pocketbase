@@ -8,3 +8,10 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Pocketbase Ignore
+/backend/pb_data
+/backend/CHANGELOG.md
+/backend/LICENSE.md
+pb8
+pocketbase

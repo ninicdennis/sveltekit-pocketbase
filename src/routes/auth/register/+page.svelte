@@ -23,6 +23,18 @@
 			{#if $errors.email}<span class="invalid">{$errors.email}</span>{/if}
 		</label>
 		<label class="label mt-4">
+			<span>Username</span>
+			<input
+				class="input p-2"
+				type="text"
+				name="username"
+				aria-invalid={$errors.username ? 'true' : undefined}
+				placeholder="Username"
+				bind:value={$form.username}
+				{...$constraints.username} />
+			{#if $errors.username}<span class="invalid">{$errors.username}</span>{/if}
+		</label>
+		<label class="label mt-4">
 			<span>Password</span>
 			<input
 				class="input p-2"
@@ -39,12 +51,12 @@
 			<input
 				class="input p-2"
 				type="password"
-				name="passwordAgain"
-				aria-invalid={$errors.passwordAgain ? 'true' : undefined}
+				name="passwordConfirm"
+				aria-invalid={$errors.passwordConfirm ? 'true' : undefined}
 				placeholder="Password"
-				bind:value={$form.passwordAgain}
-				{...$constraints.passwordAgain} />
-			{#if $errors.passwordAgain}<span class="invalid">
+				bind:value={$form.passwordConfirm}
+				{...$constraints.passwordConfirm} />
+			{#if $errors.passwordConfirm}<span class="invalid">
 					Passwords do not match!
 				</span>{/if}
 		</label>

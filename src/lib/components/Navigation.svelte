@@ -6,13 +6,21 @@
 	function drawerClose(): void {
 		drawerStore.close();
 	}
+
+	export let user: any | undefined;
+
+	$: isLoggedIn = user !== undefined;
 </script>
 
 <nav class="list-nav p-4">
 	<ul>
 		<li><a href="/" on:click={drawerClose}>Homepage</a></li>
-		<li><a href="/example" on:click={drawerClose}>Another Page</a></li>
-		<li><a href="/auth/login" on:click={drawerClose}>Login</a></li>
-		<li><a href="/auth/register" on:click={drawerClose}>Register</a></li>
+
+		{#if !isLoggedIn}
+			<li><a href="/auth/login" on:click={drawerClose}>Login</a></li>
+			<li><a href="/auth/register" on:click={drawerClose}>Register</a></li>
+		{:else}
+			<li><a href="/example" on:click={drawerClose}>Another Page</a></li>
+		{/if}
 	</ul>
 </nav>

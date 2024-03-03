@@ -28,7 +28,9 @@
 	import { cubicIn, cubicOut } from 'svelte/easing';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 
-	export let data: { pathname: string };
+	export let data: { pathname: string; user: any | undefined };
+
+	$: isLoggedIn = data.user !== undefined;
 
 	const duration = 300;
 	const delay = duration + 100;
@@ -63,7 +65,7 @@
 		<h2 class="p-4 font-bold text-white">Navigation</h2>
 	</div>
 	<hr />
-	<Navigation />
+	<Navigation user={data.user} />
 </Drawer>
 
 <AppShell slotSidebarLeft="dark:bg-surface-800 bg-surface-100 w-0 lg:w-64">
@@ -80,17 +82,28 @@
 				</h1>
 			</svelte.fragment>
 			<svelte:fragment slot="trail">
-				<div use:popup={popupAvatar}>
-					<Avatar
-						width="w-12"
-						border="border-2 hover:!border-primary-500"
-						cursor="cursor-pointer" />
-				</div>
-				<ProfilePopup />
+				{#if isLoggedIn}
+					<div use:popup={popupAvatar}>
+						<Avatar
+							width="w-12"
+							border="border-2 hover:!border-primary-500"
+							cursor="cursor-pointer" />
+					</div>
+					<ProfilePopup />
+				{:else}
+					<a href="/auth/login">
+						<button class="variant-filled-primary btn">Login</button>
+					</a>
+					<a href="/auth/register">
+						<button class="variant-filled-tertiary btn">Register</button>
+					</a>
+				{/if}
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
-	<svelte:fragment slot="sidebarLeft"><Navigation /></svelte:fragment>
+	<svelte:fragment slot="sidebarLeft">
+		<Navigation user={data.user} />
+	</svelte:fragment>
 	{#key data.pathname}
 		<div in:fly={transitionIn} out:fly={transitionOut} class="h-full">
 			{#if isLoading}

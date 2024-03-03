@@ -10,7 +10,9 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test": "vitest",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"pocketbase:install:linux": "curl -L -o backend/pb8 https://github.com/pocketbase/pocketbase/releases/download/v0.22.2/pocketbase_0.22.2_linux_amd64.zip && unzip backend/pb8 -d backend && rm pb8",
+		"pocketbase:start": "./backend/pocketbase serve"
 	},
 	"devDependencies": {
 		"@skeletonlabs/skeleton": "^2.9.0",
@@ -44,6 +46,7 @@
 	"type": "module",
 	"dependencies": {
 		"@floating-ui/dom": "^1.6.3",
-		"@iconify/svelte": "^3.1.6"
+		"@iconify/svelte": "^3.1.6",
+		"pocketbase": "^0.21.1"
 	}
 }

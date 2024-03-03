@@ -1,6 +1,6 @@
 import { superValidate } from 'sveltekit-superforms';
 import { joi } from 'sveltekit-superforms/adapters';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import Joi from 'joi';
 
 // Define outside the load function so the adapter can be cached
@@ -16,7 +16,7 @@ export const load = async () => {
 };
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ locals, request }) => {
 		const form = await superValidate(request, joi(schema));
 
 		if (!form.valid) {
@@ -24,9 +24,23 @@ export const actions = {
 			return fail(400, { form });
 		}
 
-		// TODO: Do something with the validated form.data
+		try {
+			await locals.pb
+				.collection('users')
+				.authWithPassword(form.data.email, form.data.password);
+			if (!locals.pb?.authStore?.model?.verified) {
+				locals.pb.authStore.clear();
+				console.log('not verified');
+				return {
+					form,
+					notVerified: true
+				};
+			}
+		} catch (e) {
+			console.error(e);
+			return fail(500, { form });
+		}
 
-		// Yep, return { form } here too
-		return { form };
+		redirect(303, '/');
 	}
 };
