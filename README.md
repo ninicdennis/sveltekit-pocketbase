@@ -20,7 +20,7 @@ npm run pocketbase:install:linux
 
 If you are not on a linux and potentially mac machine, the automated install is still just as simple. Continue to install your pocketbase instance, and extract necessary files in `/backend`.
 
-Once installed, you can run `pocketbase:start` to run the backend, and `npm run dev` to run the frontend!
+Once installed, you can run `npm run dev` to run both the backend and frontend simultaneously!
 
 ## Building
 
