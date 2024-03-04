@@ -1,29 +1,26 @@
-# create-svelte
+# Pocketbase Sveltekit demo
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+This is a little demo project working with Sveltekit and pocketbase! I am sure i'll add more here once more is done :)
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+First, create an environment variable from `.env.example` and populate the following variables.Be sure to grab the release for your desired version!
+
+run `npm install` to install packages necessary for frontend.
+
+### Linux (Recommended, Mac may work here though!)
+
+An automated script was made to automatically install and put the files correctly! Run the following:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm run pocketbase:install:linux
 ```
+
+### Manual install
+
+If you are not on a linux and potentially mac machine, the automated install is still just as simple. Continue to install your pocketbase instance, and extract necessary files in `/backend`.
+
+Once installed, you can run `pocketbase:start` to run the backend, and `npm run dev` to run the frontend!
 
 ## Building
 
