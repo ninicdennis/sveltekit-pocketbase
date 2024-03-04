@@ -5,8 +5,6 @@
 
 	// Client API:
 	const { form, errors, constraints, enhance } = superForm(data.form);
-
-	$: console.log($errors);
 </script>
 
 <div class="flex flex-col md:min-w-[38rem] lg:min-w-[40rem]">
