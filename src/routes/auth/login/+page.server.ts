@@ -1,23 +1,22 @@
 import { superValidate } from 'sveltekit-superforms';
-import { joi } from 'sveltekit-superforms/adapters';
+import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
-import Joi from 'joi';
+import { z } from 'zod';
 
-// Define outside the load function so the adapter can be cached
-const schema = Joi.object({
-	email: Joi.string().email().required(),
-	password: Joi.string().min(8).required()
+const zodSchema = z.object({
+	email: z.string().email(),
+	password: z.string().min(8)
 });
 
 export const load = async () => {
-	const form = await superValidate(joi(schema));
+	const form = await superValidate(zod(zodSchema));
 
 	return { form };
 };
 
 export const actions = {
 	default: async ({ locals, request }) => {
-		const form = await superValidate(request, joi(schema));
+		const form = await superValidate(request, zod(zodSchema));
 
 		if (!form.valid) {
 			// Again, return { form } and things will just work.
@@ -30,7 +29,6 @@ export const actions = {
 				.authWithPassword(form.data.email, form.data.password);
 			if (!locals.pb?.authStore?.model?.verified) {
 				locals.pb.authStore.clear();
-				console.log('not verified');
 				return {
 					form,
 					notVerified: true

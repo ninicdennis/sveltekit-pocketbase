@@ -2,6 +2,7 @@ import { serializedNonPOJOs } from '$lib/utils';
 import PocketBase from 'pocketbase';
 
 export const handle = async ({ event, resolve }) => {
+	//TODO: Make this an environment variable
 	event.locals.pb = new PocketBase('http://localhost:8090');
 	event.locals.pb.authStore.loadFromCookie(
 		event.request.headers.get('cookie') || ''
