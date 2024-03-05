@@ -1,4 +1,4 @@
-import { superValidate } from 'sveltekit-superforms';
+import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
@@ -25,18 +25,26 @@ export const actions = {
 		const form = await superValidate(request, zod(zodSchema));
 
 		if (!form.valid) {
-			// Again, return { form } and things will just work.
 			return fail(400, { form });
 		}
 
 		try {
 			await locals.pb.collection('users').create({ ...form.data });
 			await locals.pb.collection('users').requestVerification(form.data.email);
-		} catch (e) {
-			console.error(e);
+		} catch (err: any) {
+			if (err.data) {
+				const { data } = err.data;
+				if (data?.email) {
+					return setError(form, 'email', 'Email already in use');
+				}
+				if (data?.username) {
+					return setError(form, 'username', 'Username already in use');
+				}
+			}
+
 			return fail(500, { form });
 		}
 
-		redirect(303, '/');
+		redirect(303, '/auth/register/success');
 	}
 };

@@ -1,4 +1,4 @@
-import { superValidate } from 'sveltekit-superforms';
+import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
@@ -19,7 +19,6 @@ export const actions = {
 		const form = await superValidate(request, zod(zodSchema));
 
 		if (!form.valid) {
-			// Again, return { form } and things will just work.
 			return fail(400, { form });
 		}
 
@@ -34,8 +33,12 @@ export const actions = {
 					notVerified: true
 				};
 			}
-		} catch (e) {
-			console.error(e);
+		} catch (err: any) {
+			console.error(err);
+
+			if (err?.data?.message === 'Failed to authenticate.') {
+				return setError(form, 'email', 'Invalid email or password!');
+			}
 			return fail(500, { form });
 		}
 

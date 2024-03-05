@@ -3,7 +3,6 @@ import PocketBase from 'pocketbase';
 import { env } from '$env/dynamic/public';
 
 export const handle = async ({ event, resolve }) => {
-	//TODO: Make this an environment variable
 	event.locals.pb = new PocketBase(env.PUBLIC_POCKETBASE_HOST || '');
 	event.locals.pb.authStore.loadFromCookie(
 		event.request.headers.get('cookie') || ''
