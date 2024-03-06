@@ -12,7 +12,7 @@
 	$: isLoggedIn = user !== undefined;
 </script>
 
-<nav class="list-nav p-4">
+<nav class="list-nav p-4" data-testId="navigation">
 	<ul>
 		<li><a href="/" on:click={drawerClose}>Homepage</a></li>
 
