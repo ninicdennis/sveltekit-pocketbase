@@ -2,6 +2,7 @@ import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
+import { errorMessage } from '$lib/utils.js';
 
 const zodSchema = z.object({
 	email: z.string().email(),
@@ -33,13 +34,16 @@ export const actions = {
 					notVerified: true
 				};
 			}
-		} catch (err: any) {
-			console.error(err);
+		} catch (err) {
+			const { message } = errorMessage(err);
 
-			if (err?.data?.message === 'Failed to authenticate.') {
+			if (message === 'Failed to authenticate.') {
 				return setError(form, 'email', 'Invalid email or password!');
 			}
-			return fail(500, { form });
+			return fail(500, {
+				form,
+				error: 'Internal Server Error. Please try again'
+			});
 		}
 
 		redirect(303, '/');

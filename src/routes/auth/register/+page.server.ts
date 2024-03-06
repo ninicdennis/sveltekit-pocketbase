@@ -2,6 +2,7 @@ import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
+import { errorMessage } from '$lib/utils.js';
 
 const zodSchema = z
 	.object({
@@ -31,17 +32,15 @@ export const actions = {
 		try {
 			await locals.pb.collection('users').create({ ...form.data });
 			await locals.pb.collection('users').requestVerification(form.data.email);
-		} catch (err: any) {
-			if (err.data) {
-				const { data } = err.data;
-				if (data?.email) {
-					return setError(form, 'email', 'Email already in use');
-				}
-				if (data?.username) {
-					return setError(form, 'username', 'Username already in use');
-				}
+		} catch (err) {
+			const { data } = errorMessage(err);
+			if (data?.email) {
+				return setError(form, 'email', 'Email already in use');
 			}
-
+			if (data?.username) {
+				return setError(form, 'username', 'Username already in use');
+			}
+			// Fallback in case all else fails!
 			return fail(500, { form });
 		}
 
