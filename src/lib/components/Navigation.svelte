@@ -7,7 +7,7 @@
 		drawerStore.close();
 	}
 
-	export let user: any | undefined;
+	export let user: App.User | undefined;
 
 	$: isLoggedIn = user !== undefined;
 </script>

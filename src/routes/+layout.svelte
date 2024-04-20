@@ -9,7 +9,9 @@
 		storePopup,
 		popup,
 		type PopupSettings,
-		ProgressRadial
+		ProgressRadial,
+		Modal,
+		type ModalComponent
 	} from '@skeletonlabs/skeleton';
 	import '../app.pcss';
 	import {
@@ -27,8 +29,13 @@
 	import { fly } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import AvatarUpdate from '$lib/components/AvatarUpdate.svelte';
 
-	export let data: { pathname: string; user: any | undefined };
+	const modalRegistry: Record<string, ModalComponent> = {
+		AvatarUpdateModal: { ref: AvatarUpdate }
+	};
+
+	export let data: { pathname: string; user: App.User | undefined };
 
 	$: isLoggedIn = data.user !== undefined;
 
@@ -68,6 +75,8 @@
 	<Navigation user={data.user} />
 </Drawer>
 
+<Modal components={modalRegistry} />
+
 <AppShell slotSidebarLeft="dark:bg-surface-800 bg-surface-100 w-0 lg:w-64">
 	<svelte:fragment slot="header">
 		<AppBar background="bg-primary-500" padding="p-2">
@@ -82,14 +91,14 @@
 				</h1>
 			</svelte.fragment>
 			<svelte:fragment slot="trail">
-				{#if isLoggedIn}
+				{#if isLoggedIn && data.user}
 					<div use:popup={popupAvatar}>
 						<Avatar
 							width="w-12"
 							border="border-2 hover:!border-primary-500"
 							cursor="cursor-pointer" />
 					</div>
-					<ProfilePopup />
+					<ProfilePopup user={data.user} />
 				{:else}
 					<a href="/auth/login">
 						<button class="variant-filled-primary btn">Login</button>

@@ -1,6 +1,6 @@
 import type { ClientResponseError } from 'pocketbase';
 
-export const serializedNonPOJOs = (obj: object) => structuredClone(obj);
+export const serializedNonPOJOs = <Type>(obj: Type) => structuredClone(obj);
 
 type ErrorObject = {
 	message: string;

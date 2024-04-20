@@ -17,7 +17,7 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			pb: PocketBase;
-			user: User | undefined;
+			user: User | undefined | null;
 		}
 		// interface PageData {}
 		// interface PageState {}
