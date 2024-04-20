@@ -70,7 +70,7 @@
 
 <AppShell slotSidebarLeft="dark:bg-surface-800 bg-surface-100 w-0 lg:w-64">
 	<svelte:fragment slot="header">
-		<AppBar background="bg-secondary-500" padding="p-2">
+		<AppBar background="bg-primary-500" padding="p-2">
 			<svelte.fragment slot="lead" class="flex justify-between">
 				<button class="btn btn-sm lg:hidden" on:click={drawerOpen}>
 					<span>

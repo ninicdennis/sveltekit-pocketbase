@@ -14,7 +14,7 @@
 
 <nav class="list-nav p-4" data-testId="navigation">
 	<ul>
-		<li><a href="/" on:click={drawerClose}>Homepage</a></li>
+		<ul><a href="/" on:click={drawerClose}>Home</a></ul>
 
 		{#if !isLoggedIn}
 			<li><a href="/auth/login" on:click={drawerClose}>Login</a></li>
