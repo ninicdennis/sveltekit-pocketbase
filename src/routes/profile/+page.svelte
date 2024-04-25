@@ -4,12 +4,12 @@
 	import ProfileSecurity from './profileSecurity.svelte';
 
 	export let data;
-	const { username, email } = data.user;
+	const { username, email, name } = data.user;
 </script>
 
 <div class="flex w-full justify-center">
 	<Container classStyle="flex flex-col w-full">
-		<ProfileSettings {username} {email} />
+		<ProfileSettings {username} {name} {email} />
 		<ProfileSecurity />
 	</Container>
 </div>

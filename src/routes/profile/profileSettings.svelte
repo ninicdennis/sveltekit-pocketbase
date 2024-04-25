@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Input from '$lib/components/Input.svelte';
 	import {
 		Avatar,
 		LightSwitch,
@@ -7,6 +8,7 @@
 	import { getModalStore } from '@skeletonlabs/skeleton';
 
 	export let username: string;
+	export let name: string;
 	export let email: string;
 
 	const modalStore = getModalStore();
@@ -42,28 +44,23 @@
 			<LightSwitch class="self-center" rounded="rounded-full" />
 		</div>
 		<div class="min-w-80 max-w-xl">
-			<label class="label mt-2 flex flex-col">
-				<span class="font-bold">Username</span>
-				<input
-					disabled
-					value={username}
-					class="input mb-2 p-2"
-					type="text"
-					name="username"
-					placeholder="Username" />
-			</label>
+			<Input disabled label="Name" id="name" value={name} placeholder="Name" />
 		</div>
 		<div class="min-w-80 max-w-xl">
-			<label class="label mt-2 flex flex-col">
-				<span class="font-bold">E-mail</span>
-				<input
-					disabled
-					value={email}
-					class="input mb-2 p-2"
-					type="text"
-					name="email"
-					placeholder="E-mail" />
-			</label>
+			<Input
+				disabled
+				label="Username"
+				id="username"
+				value={username}
+				placeholder="Username" />
+		</div>
+		<div class="min-w-80 max-w-xl">
+			<Input
+				disabled
+				label="E-mail"
+				id="email"
+				value={email}
+				placeholder="E-mail" />
 		</div>
 	</div>
 </div>

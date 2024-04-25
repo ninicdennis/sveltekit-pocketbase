@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Input from '$lib/components/Input.svelte';
 	import { superForm } from 'sveltekit-superforms';
 
 	export let data;
@@ -14,34 +15,24 @@
 		<p class="font-semibold text-error-600">Account is not email verified!</p>
 	{/if}
 	<form method="POST" use:enhance>
-		<label class="label">
-			<span>Email</span>
-			<input
-				class="input p-2"
-				type="text"
-				name="email"
-				aria-invalid={$errors.email ? 'true' : undefined}
-				placeholder="Email"
-				bind:value={$_form.email}
-				{...$constraints.email} />
-			{#if $errors.email}<p class="font-semibold text-error-600">
-					{$errors.email}
-				</p>{/if}
-		</label>
-		<label class="label mt-4">
-			<span>Password</span>
-			<input
-				class="input p-2"
-				type="password"
-				name="password"
-				aria-invalid={$errors.password ? 'true' : undefined}
-				placeholder="Password"
-				bind:value={$_form.password}
-				{...$constraints.password} />
-			{#if $errors.password}<p class="font-semibold text-error-600">
-					{$errors.password}
-				</p>{/if}
-		</label>
+		<Input
+			label="Email"
+			type="email"
+			id="email"
+			placeholder="Email"
+			required
+			errors={$errors.email}
+			bind:value={$_form.email}
+			{...$constraints.email} />
+		<Input
+			label="Password"
+			type="password"
+			id="password"
+			placeholder="Password"
+			required
+			errors={$errors.password}
+			bind:value={$_form.password}
+			{...$constraints.password} />
 
 		<a href="/auth/forgot-password" class="my-2">Forgot Password?</a>
 

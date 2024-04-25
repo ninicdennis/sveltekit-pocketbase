@@ -29,7 +29,7 @@
 	import { fly } from 'svelte/transition';
 	import { cubicIn, cubicOut } from 'svelte/easing';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import AvatarUpdate from '$lib/components/AvatarUpdate.svelte';
+	import AvatarUpdate from '$lib/components/profile/AvatarUpdate.svelte';
 
 	const modalRegistry: Record<string, ModalComponent> = {
 		AvatarUpdateModal: { ref: AvatarUpdate }
