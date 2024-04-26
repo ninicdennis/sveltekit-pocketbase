@@ -9,7 +9,7 @@
 	const { form: _form, errors, constraints, enhance } = superForm(data.form);
 </script>
 
-<div class="flex flex-col md:min-w-[38rem] lg:min-w-[40rem]">
+<div class="flex w-full flex-col md:min-w-[40rem] lg:min-w-[40rem]">
 	<h2 class="h2 my-2 font-semibold">Login</h2>
 	{#if form?.notVerified}
 		<p class="font-semibold text-error-600">Account is not email verified!</p>
@@ -37,11 +37,11 @@
 		<a href="/auth/forgot-password" class="my-2">Forgot Password?</a>
 
 		<div class="flex justify-between">
-			<button class="variant-filled-primary btn mt-4" type="submit">
+			<button class="variant-ghost-primary btn mt-4" type="submit">
 				Login
 			</button>
 			<a href="/auth/register">
-				<button class="variant-filled-secondary btn mt-4">Register</button>
+				<button class="variant-ghost-tertiary btn mt-4">Register</button>
 			</a>
 		</div>
 	</form>

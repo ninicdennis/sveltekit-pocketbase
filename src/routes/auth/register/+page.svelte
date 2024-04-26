@@ -7,7 +7,7 @@
 	const { form: _form, errors, constraints, enhance } = superForm(data.form);
 </script>
 
-<div class="flex flex-col md:min-w-[38rem] lg:min-w-[40rem]">
+<div class="flex w-full flex-col md:min-w-[40rem] lg:min-w-[40rem]">
 	<h2 class="h2 my-2 font-semibold">Register</h2>
 	<form method="POST" use:enhance>
 		<Input
@@ -50,11 +50,11 @@
 			bind:value={$_form.passwordConfirm}
 			{...$constraints.passwordConfirm} />
 		<div class="flex justify-between">
-			<button class="variant-filled-primary btn mt-4" type="submit">
+			<button class="variant-ghost-primary btn mt-4" type="submit">
 				Register
 			</button>
 			<a href="/auth/login">
-				<button class="variant-filled-secondary btn mt-4">Login</button>
+				<button class="variant-ghost-tertiary btn mt-4">Login</button>
 			</a>
 		</div>
 	</form>

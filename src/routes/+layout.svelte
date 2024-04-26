@@ -68,7 +68,7 @@
 </svelte:head>
 
 <Drawer class="bg-surface-500">
-	<div class="flex items-center justify-between bg-secondary-500">
+	<div class="flex items-center justify-between bg-primary-500">
 		<h2 class="p-4 font-bold text-white">Navigation</h2>
 	</div>
 	<hr />
@@ -100,10 +100,10 @@
 					</div>
 					<ProfilePopup user={data.user} />
 				{:else}
-					<a href="/auth/login">
-						<button class="variant-filled-primary btn">Login</button>
+					<a href="/auth/login" class="invisible md:visible">
+						<button class="variant-ghost-primary btn">Login</button>
 					</a>
-					<a href="/auth/register">
+					<a href="/auth/register" class="invisible md:visible">
 						<button class="variant-filled-tertiary btn">Register</button>
 					</a>
 				{/if}
