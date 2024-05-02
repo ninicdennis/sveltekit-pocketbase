@@ -11,7 +11,8 @@
 		type PopupSettings,
 		ProgressRadial,
 		Modal,
-		type ModalComponent
+		type ModalComponent,
+		Toast
 	} from '@skeletonlabs/skeleton';
 	import '../app.pcss';
 	import {
@@ -35,7 +36,7 @@
 		AvatarUpdateModal: { ref: AvatarUpdate }
 	};
 
-	export let data: { pathname: string; user: App.User | undefined };
+	export let data;
 
 	$: isLoggedIn = data.user !== undefined;
 
@@ -76,6 +77,7 @@
 </Drawer>
 
 <Modal components={modalRegistry} />
+<Toast position="bl" />
 
 <AppShell slotSidebarLeft="dark:bg-surface-800 bg-surface-100 w-0 lg:w-64">
 	<svelte:fragment slot="header">
@@ -94,6 +96,8 @@
 				{#if isLoggedIn && data.user}
 					<div use:popup={popupAvatar}>
 						<Avatar
+							src={data.avatar || ''}
+							rounded="false"
 							width="w-12"
 							border="border-2 hover:!border-primary-500"
 							cursor="cursor-pointer" />

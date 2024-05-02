@@ -1,38 +1,11 @@
 <script lang="ts">
 	import Input from '$lib/components/Input.svelte';
-	import {
-		Avatar,
-		LightSwitch,
-		type ModalSettings
-	} from '@skeletonlabs/skeleton';
-	import { getModalStore } from '@skeletonlabs/skeleton';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 
 	export let username: string;
 	export let name: string;
 	export let email: string;
-
-	const modalStore = getModalStore();
-
-	const modal: ModalSettings = {
-		type: 'component',
-		component: 'AvatarUpdateModal'
-	};
 </script>
-
-<h2 class="h2 font-bold">Profile Settings</h2>
-
-<div class="card mt-4 flex flex-col items-center p-4">
-	<div class="card-header mb-4 text-center">
-		<h3 class="h3 font-semibold">Avatar</h3>
-	</div>
-	<Avatar src="invalid-image.jpg" initials="AB" width="w-32" rounded="false" />
-
-	<button
-		class="variant-filled-primary btn mt-4"
-		on:click={() => modalStore.trigger(modal)}>
-		Change Avatar
-	</button>
-</div>
 
 <div class="card mb-4 mt-4 p-4">
 	<div class="card-header">

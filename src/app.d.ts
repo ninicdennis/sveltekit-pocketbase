@@ -1,10 +1,8 @@
-import PocketBase from 'pocketbase';
+import PocketBase, { type RecordModel } from 'pocketbase';
 declare global {
 	namespace App {
-		interface User {
+		interface User extends RecordModel {
 			avatar: string;
-			collectionId: string;
-			collectionName: string;
 			created: Date;
 			email: string;
 			emailVisibility: boolean;

@@ -4,7 +4,7 @@
 	import { Avatar, FileDropzone } from '@skeletonlabs/skeleton';
 	import { getModalStore } from '@skeletonlabs/skeleton';
 
-	const modalStore = getModalStore();
+	//const modalStore = getModalStore();
 	let files: FileList;
 	let image: string = '';
 
@@ -46,11 +46,11 @@
 		</FileDropzone>
 		<div class="flex w-full justify-between">
 			<button class="variant-filled-primary btn">Save</button>
-			<button
+			<!--<button
 				class="variant-filled-tertiary btn"
 				on:click={() => modalStore.close()}>
 				Cancel
-			</button>
+			</button>-->
 		</div>
 	</div>
 </Modal>
