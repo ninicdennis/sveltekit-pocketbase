@@ -8,14 +8,14 @@ import getAvatarUrl from '$lib/components/getAvatar.js';
 
 const MAX_FILE_SIZE = 5000000;
 
-const schema = z.object({
+const avatarSchema = z.object({
 	avatar: z
 		.instanceof(File, { message: 'Please upload a file.' })
 		.refine((f) => f.size < MAX_FILE_SIZE, 'Max 5mb upload size.')
 });
 
 export const load = async ({ locals }) => {
-	const form = await superValidate(zod(schema));
+	const form = await superValidate(zod(avatarSchema));
 	if (locals.user) {
 		const avatar = getAvatarUrl(locals.pb, locals.user);
 		return { form, avatar };
@@ -26,7 +26,7 @@ export const load = async ({ locals }) => {
 
 export const actions = {
 	updateAvatar: async ({ locals, request }) => {
-		const form = await superValidate(request, zod(schema));
+		const form = await superValidate(request, zod(avatarSchema));
 		if (!form.valid) {
 			return fail(400, withFiles({ form }));
 		}

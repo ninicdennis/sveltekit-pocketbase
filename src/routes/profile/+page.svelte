@@ -2,7 +2,6 @@
 	import Container from '$lib/components/Container.svelte';
 	import ProfileSettings from './profileSettings.svelte';
 	import ProfileSecurity from './profileSecurity.svelte';
-	import type { ActionData } from './$types.js';
 	import ProfileAvatar from './profileAvatar.svelte';
 
 	export let data;

@@ -7,13 +7,16 @@
 	} from '@skeletonlabs/skeleton';
 	import { superForm, type SuperValidated } from 'sveltekit-superforms';
 	import { getToastStore } from '@skeletonlabs/skeleton';
+	import type { ActionResult } from '@sveltejs/kit';
 
 	export let avatar: string;
 	export let form: SuperValidated<{ avatar: File }>;
 
-	const onSubmit = () => {
-		editAvatar = false;
-		toastStore.trigger(avatarSuccessToast);
+	const onResult = ({ result }: { result: ActionResult }) => {
+		if (result.type === 'success') {
+			editAvatar = false;
+			toastStore.trigger(avatarSuccessToast);
+		}
 	};
 
 	const {
@@ -21,7 +24,7 @@
 		errors,
 		constraints,
 		enhance
-	} = superForm(form, { onSubmit });
+	} = superForm(form, { onResult });
 	const toastStore = getToastStore();
 
 	$: image = avatar;
@@ -61,20 +64,18 @@
 			<h3 class="h3 font-semibold">Avatar</h3>
 		</div>
 		{#if editAvatar}
-			<h2 class="h3 pl-4 pr-4 text-center font-semibold">Preview</h2>
-			<Avatar
-				src={image}
-				initials="AB"
-				width="w-32"
-				rounded="false"
-				class="mb-4 mt-4" />
-
+			<Avatar src={image} initials="AB" width="w-32" rounded="false" />
+			{#if $errors.avatar}
+				<p class="mb-2 mt-2 font-semibold text-error-600">{$errors.avatar}</p>
+			{:else}
+				<div class="mb-4 mt-4" />
+			{/if}
 			<FileDropzone
 				name="avatar"
 				on:input={onInput}
 				on:change={onChange}
 				accept="image/*"
-				class="max-w-lg">
+				class="max-w-96">
 				<svelte:fragment slot="lead">
 					<div class="flex items-center justify-center">
 						<Icon icon="mdi:file-outline" />
@@ -85,14 +86,16 @@
 				</svelte:fragment>
 				<svelte:fragment slot="meta">(png, jpg)</svelte:fragment>
 			</FileDropzone>
-			<div class="flex w-full justify-between">
+
+			<div class="mt-4 flex gap-36 lg:gap-52">
 				<button type="submit" class="variant-filled-primary btn">Save</button>
 				<button
 					class="variant-filled-tertiary btn"
 					on:click={() => (editAvatar = false)}>
 					Cancel
 				</button>
-			</div>{:else}
+			</div>
+		{:else}
 			<Avatar src={image} initials="AB" width="w-32" rounded="false" />
 
 			<button
